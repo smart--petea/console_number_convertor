@@ -1,5 +1,7 @@
 use clap::Parser;
 
+use conv;
+
 #[derive(Parser)]
 #[clap(about)]
 struct Cli {
@@ -7,16 +9,14 @@ struct Cli {
     input: String,
 
     #[clap(long="ibase")]
-    input_base: String,
+    input_base: u32,
 
     #[clap(long="obase")]
-    output_base: String,
+    output_base: u32,
 }
 
 fn main() {
     let cli = Cli::parse();
 
-    println!("input={}", cli.input);
-    println!("input_base={}", cli.input_base);
-    println!("output_base={}", cli.output_base);
+    println!("{}", conv::convert_base(cli.input, cli.input_base, cli.output_base));
 }
