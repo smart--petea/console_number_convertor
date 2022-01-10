@@ -15,8 +15,15 @@ struct Cli {
     output_base: u32,
 }
 
-fn main() {
+fn main() -> Result<(), String> {
     let cli = Cli::parse();
+    let result = conv::convert_base(cli.input, cli.input_base, cli.output_base);
 
-    println!("{}", conv::convert_base(cli.input, cli.input_base, cli.output_base));
+    match result {
+        Ok(output) => {
+            println!("{}", output);
+            Ok(())
+        }
+        Err(message) => Err(message)
+    }
 }
